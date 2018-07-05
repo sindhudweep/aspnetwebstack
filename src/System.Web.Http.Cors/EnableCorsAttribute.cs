@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,7 +57,7 @@ namespace System.Web.Http.Cors
             }
             else
             {
-                AddCommaSeparatedValuesToCollection(origins, _corsPolicy.Origins);
+                AddCommaSeparatedValuesToCollection(origins.ToLowerInvariant(), _corsPolicy.Origins); //scheme and host should be lowercased per rfc6454 to make the origin triple (scheme, host, port)
             }
 
             if (!String.IsNullOrEmpty(headers))
